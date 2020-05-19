@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using ClassLibrary;
-using Microsoft.Win32;
 
 namespace ConsoleApp2
 {
@@ -16,8 +13,6 @@ namespace ConsoleApp2
         {
             char sep = Path.DirectorySeparatorChar;
             string path = $"..{sep}..{sep}..{sep}ConsoleApp{sep}bin{sep}debug{sep}out.txt";
-            if (!File.Exists(path))
-                Console.WriteLine("file doesn't exist :(");
             var streets = DeserializeStreets(path);
 
             var tempName = (from str in streets
