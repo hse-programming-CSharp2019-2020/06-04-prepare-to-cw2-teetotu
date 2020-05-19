@@ -48,14 +48,14 @@ namespace ConsoleApp
             foreach (var street in streets)
                 Console.WriteLine(street);
 
-            SerializeStreets("out.ser", streets);
+            SerializeStreets("out.txt", streets);
         }
 
         private static void SerializeStreets(string path, List<Street> streets)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<Street>));
 
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 formatter.Serialize(fs, streets);
                 Console.WriteLine("Serialization completed successfully!");

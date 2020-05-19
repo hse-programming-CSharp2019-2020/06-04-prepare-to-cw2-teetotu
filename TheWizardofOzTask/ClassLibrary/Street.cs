@@ -10,23 +10,25 @@ namespace ClassLibrary
     public class Street
     {
         public string name;
-        public int[] _houses;
+        public int[] houses;
+
+        public Street() { }
 
         public Street(string name, int[] houseNumbers)
         {
             if (houseNumbers == null || name == null)
                 throw new ArgumentNullException();
             this.name = name;
-            _houses = houseNumbers;
+            houses = houseNumbers;
         }
 
-        public Street() { }
+        private int _numberOfHouses => houses.Length;
 
-        private int _numberOfHouses => _houses.Length;
+
         public static int operator ~(Street street) => street._numberOfHouses;
         public static bool operator !(Street street)
         {
-            var a = (from h in street._houses
+            var a = (from h in street.houses
                      where h.ToString().Contains('7')
                      select h).ToList();
             return a.Count != 0;
@@ -34,13 +36,13 @@ namespace ClassLibrary
 
         public override string ToString()
         {
-            if (_houses == null)
+            if (houses == null)
                 throw new ArgumentNullException("no street initiated");
             var sb = new StringBuilder();
             sb.Append(name + Environment.NewLine);
-            for (int i = 0; i < _houses.Length - 1; i++)
-                sb.Append(_houses[i] + ", ");
-            sb.Append(_houses[_houses.Length - 1]);
+            for (int i = 0; i < houses.Length - 1; i++)
+                sb.Append(houses[i] + ", ");
+            sb.Append(houses[houses.Length - 1]);
             return sb.ToString();
         }
     }
