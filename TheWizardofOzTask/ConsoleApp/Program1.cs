@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 using ClassLibrary;
 
 namespace ConsoleApp
@@ -47,6 +47,19 @@ namespace ConsoleApp
 
             foreach (var street in streets)
                 Console.WriteLine(street);
+
+            SerializeStreets("out.ser", streets);
+        }
+
+        private static void SerializeStreets(string path, List<Street> streets)
+        {
+            XmlSerializer formatter = new XmlSerializer(typeof(List<Street>));
+
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, streets);
+                Console.WriteLine("Serialization completed successfully!");
+            }
         }
 
         private static void FillStreetData(List<Street> streets, int n)

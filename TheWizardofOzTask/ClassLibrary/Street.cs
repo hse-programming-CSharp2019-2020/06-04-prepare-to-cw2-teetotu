@@ -9,16 +9,18 @@ namespace ClassLibrary
     [Serializable]
     public class Street
     {
-        public string Name { get; private set; }
-        private int[] _houses;
+        public string name;
+        public int[] _houses;
 
         public Street(string name, int[] houseNumbers)
         {
             if (houseNumbers == null || name == null)
                 throw new ArgumentNullException();
-            Name = name;
+            this.name = name;
             _houses = houseNumbers;
         }
+
+        public Street() { }
 
         private int _numberOfHouses => _houses.Length;
         public static int operator ~(Street street) => street._numberOfHouses;
@@ -35,7 +37,7 @@ namespace ClassLibrary
             if (_houses == null)
                 throw new ArgumentNullException("no street initiated");
             var sb = new StringBuilder();
-            sb.Append(Name + Environment.NewLine);
+            sb.Append(name + Environment.NewLine);
             for (int i = 0; i < _houses.Length - 1; i++)
                 sb.Append(_houses[i] + ", ");
             sb.Append(_houses[_houses.Length - 1]);
